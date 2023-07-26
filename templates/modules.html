@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3 id="hidden_stillaffect">Home</h3>
+<div id="page_mainbody">
+        <h3 id="page_header">Modules</h3>
+        <div id="home_paragraph1">
+                <p id="button_alt"><a href="{{ url_for('module_add', failed=False) }}" class="nav_link" id="button_alt">Add Modules</a></p><br>
+                <p></p><br>
+                <p></p><br>
+                <p id="button_alt"><a href="{{ url_for('module_assign', failed=False) }}" class="nav_link" id="button_alt">Assign Staff</a></p><br>
+                <p></p>
+                <table>
+                    <tr>
+                        <th>Database ID</th>
+                        <th>Level</th>
+                        <th>Code</th>
+                        <th>Title</th>
+                    </tr>
+                    {% if module_list is not none and module_list|length > 0 %}
+                        {% for item in module_list %}
+                            <tr>
+                                <td>{{ item.mod_id }}</td>
+                                <td>{{ item.mod_level }}</td>
+                                <td>{{ item.mod_code }}</td>
+                                <td>{{ item.mod_title }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <p style="color: red;">There are no modules!</p>
+                    {% endif %}
+                </table>
+                <br>
+        </div>
+</div>
+{% endblock %}

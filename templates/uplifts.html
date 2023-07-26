@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3 id="hidden_stillaffect">Home</h3>
+<div id="page_mainbody">
+        <h3 id="page_header">Uplifts</h3>
+        <div id="home_paragraph1">
+                <p id="button_alt"><a href="{{ url_for('uplift_add', failed=False) }}" class="nav_link" id="button_alt">Add Uplifts</a></p><br>
+                <p></p>
+                <table>
+                    <tr>
+                        <th>Database ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Hours</th>
+                        <th>Comment</th>
+                    </tr>
+                    {% if uplift_list is not none and uplift_list|length > 0 %}
+                        {% for item in uplift_list %}
+                            <tr>
+                                <td>{{ item.uplift_id }}</td>
+                                <td>{{ item.uplift_name }}</td>
+                                <td>{{ item.uplift_type }}</td>
+                                <td>{{ item.uplift_hours }}</td>
+                                {% if item.uplift_comment == "N/A" %}
+                                    <td>-</td>
+                                {% else %}
+                                    <td>{{ item.uplift_comment }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <p style="color: red;">There are no uplifts!</p>
+                    {% endif %}
+                </table>
+                <br>
+        </div>
+</div>
+{% endblock %}

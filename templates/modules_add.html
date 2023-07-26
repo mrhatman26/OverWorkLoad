@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Add Module</h3>
+    <div id="login_boxes">
+        <p>Module Level:</p>
+        <input class="textbox" type="text" id="mod_level" name="txt_mod_level" maxlength=99 class="textbox"><br>
+        <p>Module Code:</p>
+        <input class="textbox" type="text" id="mod_code" name="txt_mod_code" maxlength=99 class="textbox"><br>
+        <p>Module Title:</p>
+        <input class="textbox" type="text" id="mod_title" name="txt_mod_title" maxlength=99 class="textbox"><br>
+        <p class="button" id="mod_subbutton"><a>Add New Module</a></p>
+    </div>
+    <p id="modadd_div_error_msg">Please fill in all boxes.</p>
+</div>
+<script src="{{ url_for('static', filename='scripts/addmodules.js') }}"></script>
+{% endblock %}

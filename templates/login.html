@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Login</h3>
+    <div id="login_boxes">
+        <p>Username:</p>
+        <input class="textbox" type="text" id="login_username" name="txt_login_uname" maxlength=99 class="textbox"><br>
+        <p>Password:</p>
+        <input class="textbox" type="password" id="login_password" name="txt_login_uname" maxlength=99 class="textbox"><br>
+        <p class="button" id="login_subbutton"><a>Login</a></p>
+    </div>
+    <p id="login_div_error_msg">Please fill in both boxes.</p>
+    <p id="login_account_message">Don't have an account?</p>
+    <p class="button"><a href="{{ url_for('user_signup', failed=False) }}" class="button_link_alt">Signup</a></p>
+</div>
+<script src="{{ url_for('static', filename='scripts/login.js') }}"></script>
+{% endblock %}

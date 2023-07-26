@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Add Uplift</h3>
+    <div id="login_boxes">
+        <p>Uplift Name:</p>
+        <input class="textbox" type="text" id="up_name" name="txt_up_name" maxlength=99 class="textbox"><br>
+        <p>Uplift Type: <select name="up_type", id="up_type">
+            <option selected>Teaching Allowances</option>
+            <option>Admin Allowances</option>
+            <option>Research Allowances</option>
+            <option>Project Supervision Allowances</option>
+        </select></p>
+        <p>Uplift Hours:</p>
+        <input class="textbox" type="text" id="up_hours" name="txt_up_hours" maxlength=99 class="textbox"><br>
+        <p>Uplift Comment:</p>
+	    <input class="textbox" type="text" id="up_comment" name="txt_up_comment" maxlength=200 class="textbox"><br>
+        <p class="button" id="up_subbutton"><a>Add New Uplift</a></p>
+    </div>
+    <p id="upadd_div_error_msg">Please fill in all boxes.</p>
+</div>
+<script src="{{ url_for('static', filename='scripts/adduplifts.js') }}"></script>
+{% endblock %}

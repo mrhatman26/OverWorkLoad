@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Signup</h3>
+    <div id="signup_boxes">
+        <p>Username*:</p>
+        <input class="textbox" type="text" id="signup_username" name="txt_signup_uname" maxlength=99>
+        <p>Password*:</p>
+        <input class="textbox" type="password" id="signup_password" name="txt_signup_uname" maxlength=99><br>
+        <p class="button" id="signup_subbutton"><a>Signup</a></p>
+    </div>
+    <p id="signup_div_error_msg">Please fill in both boxes.</p>
+</div>
+<script src="{{ url_for('static', filename='scripts/signup.js') }}"></script>
+{% endblock %}

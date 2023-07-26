@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ page_name }}</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li id="home_button"><a href="{{ url_for('home') }}" class="nav_link">Home</a></li>
+                <li id="universities_button"><a href="{{ url_for('staff_list') }}" class="nav_link">Staff List</a></li>
+                <li id="colleges_button"><a href="{{ url_for('module_list') }}" class="nav_link">Modules</a></li>
+                <li id="other_button"><a href="{{ url_for('uplift_list') }}" class="nav_link">Uplifts</a></li>
+                <li id="other_button"><a href="{{ url_for('home') }}" class="nav_link">TBD</a></li>
+            </ul>
+        </nav>
+        <div id="acc_manage">
+            <ul>
+                {% if current_user.is_authenticated %}
+                    {% block isAuthed %}
+                        <li id="nav_login_button"><a href="{{ url_for('home') }}" class="nav_link">{{ current_user.username }}</a></li>
+                        <li id="nav_logout_button"><a href="{{ url_for('user_logout') }}" class="nav_link">Logout</a></li>
+                    {% endblock %}
+                {% else %}
+                    {% block notAuthed %}
+                        <li id="nav_login_button"><a href="{{ url_for('user_login', failed=False) }}" class="nav_link">Login</a></li>
+                    {% endblock %}
+                {% endif %}
+            </ul>
+        </div>
+        <div id="title">
+            <a href="{{ url_for('home') }}" class="nav_link"><img id="avatar" src="{{ url_for('static', filename='logoBlack.png') }}"></a>
+        </div> 
+        <div class="main">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Assign Staff to Module</h3>
+    <div id="login_boxes">
+        <p id="assign_div_error_msg">Please fill in all boxes.</p>
+        <p>Module Code <select name="module_code", id="mod_assign_mod_code">
+            {% if module_list is not none and module_list|length > 0 %}
+                <option hidden selected="true" disabled="disabled">Choose Module Code</option>
+                {% for item in module_list %}
+                    <option>{{ item.mod_code }}</option>
+                {% endfor %}
+            {% else %}
+                <option selected="true" disabled="disabled">No Modules Available!</option>
+            {% endif %}
+        </select></p>
+        <p>Staff Code <select name="staff_code", id="mod_assign_staff_code">
+            {% if staff_list is not none and staff_list|length > 0 %}
+                <option hidden selected="true" disabled="disabled">Choose Staff Code</option>
+                {% for item in staff_list %}
+                    <option>{{ item.staff_code }}</option>
+                {% endfor %}
+            {% else %}
+                <option selected="true" disabled="disabled">No Staff Available!</option>
+            {% endif %}
+        </select></p>
+        <p>Delivery (Campus):</p>
+        <input class="textbox" type="text" id="mod_assign_mod_delivery" name="txt_mod_delivery" maxlength=99 class="textbox"><br>
+        <p>New to Module? <select name="module_newto", id="mod_assign_mod_newto">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Module Leader? <select name="module_leader", id="mod_assign_mod_leader">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Lecture Prep? <select name="module_prep", id="mod_assign_mod_prep">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Lab Delivery? <select name="module_inlab", id="mod_assign_mod_inlab">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Credits:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_credits" name="txt_mod_credits" maxlength=99 class="textbox"><br>
+        <p>No. of Weeks:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_noweeks" name="txt_mod_noweeks" maxlength=99 class="textbox"><br>
+        <p>Amount of Students:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_student_amount" name="txt_mod_student_amount" maxlength=99 class="textbox"><br>
+        <p>Hours Per Week:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_weekhours" name="txt_mod_weekhours" maxlength=99 class="textbox"><br>
+        <p>Repeat Lectures Per Week:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_weeklyrepeats" name="txt_mod_weeklyrepeats" maxlength=99 class="textbox"><br>
+        <p>First Lab Hours:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_firsthours" name="txt_mod_firsthours" maxlength=99 class="textbox"><br>
+        <p>Repeat Lab Hours:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_repeathours" name="txt_mod_repeathours" maxlength=99 class="textbox"><br>
+        <p>Override Marking Hours? <select name="module_markhoursoverride", id="mod_assign_mod_markhoursoverride">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Override Marking Hours:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_overridehours" name="txt_mod_overridehours" maxlength=99 class="textbox"><br>
+        <p>Module Notes:</p>
+        <input class="textbox" type="text" id="mod_assign_mod_notes" name="txt_mod_notes" maxlength=99 class="textbox"><br>
+        <p class="button" id="assign_subbutton"><a>Assign</a></p>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='scripts/addlink_stafftomodule.js') }}"></script>
+{% endblock %}

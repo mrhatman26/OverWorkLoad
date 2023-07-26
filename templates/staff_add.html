@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Add Staff Member</h3>
+    <div id="login_boxes">
+        <p>Staff Code:</p>
+        <input class="textbox" type="text" id="staff_code" name="txt_staff_code" maxlength=99 class="textbox"><br>
+        <p>Staff Name:</p>
+        <input class="textbox" type="text" id="staff_name" name="txt_staff_name" maxlength=99 class="textbox"><br>
+        <p>Staff Grade:</p>
+        <input class="textbox" type="text" id="staff_grade" name="txt_staff_grade" maxlength=99 class="textbox"><br>
+        <p>Staff FTE:</p>
+        <input class="textbox" type="text" id="staff_fte" name="txt_staff_fte" maxlength=99 class="textbox"><br>
+        <p>Has HEA?:<input type="checkbox" id="staff_hasHEA" class="checkybox"></p>
+        <p class="button" id="staff_subbutton"><a>Add New Staff</a></p>
+    </div>
+    <p id="staffadd_div_error_msg">Please fill in all boxes.</p>
+</div>
+<script src="{{ url_for('static', filename='scripts/addstaff.js') }}"></script>
+{% endblock %}
