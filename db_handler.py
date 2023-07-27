@@ -92,29 +92,50 @@ def staff_getall(calculate):
             })
     else:
         for item in cursor.fetchall():
+            hours = staff_gethours(item[0])
             staff.append({
                 'staff_id': item[0],
                 'staff_code': item[1],
-                'staff_teaching': None,
-                'staff_research': 0, #To be done
-                'staff_admin': 0, #To be done
-                'staff_total': None,
+                'staff_teaching': hours[1],
+                'staff_research': hours[2], #To be done
+                'staff_admin': hours[3], #To be done
+                'staff_total': hours[0],
                 'staff_notational': None,
-                'staff_workload': None
+                'staff_workload': "{:.2f}".format((hours[0] / 1581) * 100)
             })
     cursor.close()
     database.close()
+    for item in staff:
+        print(item, flush=True)
     return staff
 
-def staff_gethours(staff_id, hour_type):
-    hours = 0
+def staff_gethours(staff_id):
+    total_hours = 0
+    teaching_hours = 0
+    research_hours = 0
+    admin_hours = 0
+    uplift_hours = 0
     database = mysql.connector.connect(**dbconfig) #Connects to the database using the variable "dbconfig" from the file "db_config.py".
     cursor = database.cursor()
-    if hour_type == 0: #Teaching
-        cursor.execute("SELECT * FROM link_staff_module WHERE staff_id = %s", (staff_id,))
-        cfetch = cursor.fetchall()[0]
+    #Teaching hours
+    cursor.execute("SELECT * FROM link_staff_module WHERE staff_id = %s", (staff_id,))
+    cfetch = cursor.fetchall()
+    if len(cfetch) > 0:
+        staff_module_link = cfetch[0]
+        cursor.execute("SELECT table_uplifts.uplift_hours FROM table_uplifts INNER JOIN link_staff_uplift ON table_uplifts.uplift_id=link_staff_uplift.uplift_id WHERE link_staff_uplift.staff_id = %s", (staff_id,))
+        for item in cursor.fetchall():
+            uplift_hours += float(item[0])
+        uplift_hours = uplift_hours * int(staff_module_link[8])
+        teaching_hours = float(staff_module_link[10]) * int(staff_module_link[8])
+        cursor.execute("SELECT uplift_hours FROM table_uplifts WHERE uplift_id = 6")
+        teaching_hours = teaching_hours + (float(cursor.fetchall()[0][0]) * (int(staff_module_link[9]) / 2))
+        teaching_hours = teaching_hours + uplift_hours
+        total_hours += teaching_hours
+        #To do: Change marking hours to the override if override is true
+    #Calculate other hours
     cursor.close()
     database.close()
+    return (total_hours, teaching_hours, research_hours, admin_hours)
 
 
 

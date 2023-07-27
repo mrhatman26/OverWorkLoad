@@ -22,12 +22,12 @@
                             <tr>
                                 <td>{{ item.staff_id }}</td>
                                 <td>{{ item.staff_code }}</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>{{ item.staff_teaching }}</td>
+                                <td>{{ item.staff_research }}</td>
+                                <td>{{ item.staff_admin }}</td>
+                                <td>{{ item.staff_total }}</td>
                                 <td>1581</td>
-                                <td>0%</td>
+                                <td class="workload">{{ item.staff_workload }}</td>
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -45,4 +45,5 @@
                 <br>
         </div>
 </div>
+<script src="{{ url_for('static', filename='scripts/workload.js') }}"></script>
 {% endblock %}

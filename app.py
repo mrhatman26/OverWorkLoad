@@ -27,7 +27,7 @@ def home():
 #Staff List
 @app.route('/staff/list')
 def staff_list():
-    return render_template('staff.html', page_name="Staff List",  staff_list=staff_getall(False))
+    return render_template('staff.html', page_name="Staff List",  staff_list=staff_getall(True))
 
 #Add staff
 @app.route('/staff/add+failed=<failed>')
