@@ -119,7 +119,7 @@ def uplift_add_confirm(uplift_info):
         
 #User routes
 #Login
-@app.route('/users/login+failed=<failed>')
+@app.route('/user/login+failed=<failed>')
 def user_login(failed):
     if current_user.is_authenticated:
         return redirect('/')

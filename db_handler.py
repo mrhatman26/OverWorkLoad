@@ -55,6 +55,8 @@ def user_validate(user_info):
                 #If flush is not set to True when printing, nothing will be printed.
     else:
         print("Username Denied", flush=True)
+    cursor.close()
+    database.close()
     return current_user
 
 def user_create(user_info):
@@ -67,6 +69,8 @@ def user_create(user_info):
         user_info[1] = to_hash(user_info[1])
         cursor.execute("INSERT INTO table_users VALUES(%s, %s, %s)", (new_user_id, user_info[0], user_info[1]))
         database.commit()
+        cursor.close()
+        database.close()
         return True
     return False
 
@@ -98,6 +102,8 @@ def staff_getall(calculate):
                 'staff_notational': None,
                 'staff_workload': None
             })
+    cursor.close()
+    database.close()
     return staff
 
 def staff_gethours(staff_id, hour_type):
@@ -107,6 +113,8 @@ def staff_gethours(staff_id, hour_type):
     if hour_type == 0: #Teaching
         cursor.execute("SELECT * FROM link_staff_module WHERE staff_id = %s", (staff_id,))
         cfetch = cursor.fetchall()[0]
+    cursor.close()
+    database.close()
 
 
 
@@ -115,8 +123,12 @@ def staff_exists(staff_code):
     cursor = database.cursor()
     cursor.execute("SELECT staff_id FROM table_staff WHERE staff_code = %s", (staff_code,))
     if len(cursor.fetchall()) > 0:
+        cursor.close()
+        database.close()
         return True
     else:
+        cursor.close()
+        database.close()
         return False
     
 def staff_getID(staff_code):
@@ -126,8 +138,12 @@ def staff_getID(staff_code):
     cfetch = cursor.fetchall()
     if len(cfetch) > 0:
         for item in cfetch:
+            cursor.close()
+            database.close()
             return item[0]
     else:
+        cursor.close()
+        database.close()
         return None
 
 def staff_create(staff_info):
@@ -144,9 +160,13 @@ def staff_create(staff_info):
         new_staff_id = len(cursor.fetchall())
         cursor.execute("INSERT INTO table_staff VALUES(%s, %s, %s, %s, %s, %s)", (new_staff_id, staff_info[0], staff_info[1], staff_info[2], staff_info[3], staff_info[4],))
         database.commit()
+        cursor.close()
+        database.close()
         return True
     else:
         print("Staff exists", flush=True)
+        cursor.close()
+        database.close()
         return False
     
 #Module handling
@@ -171,8 +191,12 @@ def module_exists(module_code):
     cursor = database.cursor()
     cursor.execute("SELECT mod_id FROM table_modules WHERE mod_code = %s", (module_code,))
     if len(cursor.fetchall()) > 0:
+        cursor.close()
+        database.close()
         return True
     else:
+        cursor.close()
+        database.close()
         return False
 
 def module_getID(module_code):
@@ -182,8 +206,12 @@ def module_getID(module_code):
     cfetch = cursor.fetchall()
     if len(cfetch) > 0:
         for item in cfetch:
+            cursor.close()
+            database.close()
             return item[0]
     else:
+        cursor.close()
+        database.close()
         return None
 
 def module_create(module_info):
@@ -195,8 +223,12 @@ def module_create(module_info):
         new_module_id = len(cursor.fetchall())
         cursor.execute("INSERT INTO table_modules VALUES(%s, %s, %s, %s)", (new_module_id, module_info[0], module_info[1], module_info[2],))
         database.commit()
+        cursor.close()
+        database.close()
         return True
     else:
+        cursor.close()
+        database.close()
         return False
 
 #Uplift handling
@@ -213,6 +245,8 @@ def uplift_getall():
             "uplift_hours": item[3],
             "uplift_comment": item[4]
         })
+    cursor.close()
+    database.close()
     return uplift_list
 
 def uplift_create(uplift_info):
@@ -224,6 +258,8 @@ def uplift_create(uplift_info):
     new_uplift_id = len(cursor.fetchall())
     cursor.execute("INSERT INTO table_uplifts VALUES(%s, %s, %s, %s, %s)", (new_uplift_id, uplift_info[0], uplift_info[1], uplift_info[2], uplift_info[3],))
     database.commit()
+    cursor.close()
+    database.close()
 
 #Link handling
 def link_staff_module(link_info):
@@ -233,7 +269,21 @@ def link_staff_module(link_info):
     staff_id = staff_getID(link_info[1])
     database = mysql.connector.connect(**dbconfig) #Connects to the database using the variable "dbconfig" from the file "db_config.py".
     cursor = database.cursor()
-    if link_info[3] == "1": #Check if staff gets new lecture prep uplift
-        cursor.execute("INSERT INTO link_staff_uplift")
+    if link_info[3] == "1": #Check if staff is new to module
+        if link_info[5] == "1": #Check if staff has lecture prep
+            cursor.execute("INSERT INTO link_staff_uplift VALUES(%s, %s)", (staff_id, 0,))
+            database.commit()
+        if link_info[6] == "1": #Check if staff is doing the class in lab
+            cursor.execute("INSERT INTO link_staff_uplift VALUES(%s, %s)", (staff_id, 2,))
+            database.commit()
+    if link_info[4] == "1":
+        if link_info[5] == "1": #Check if staff has lecture prep
+            cursor.execute("INSERT INTO link_staff_uplift VALUES(%s, %s)", (staff_id, 1,))
+            database.commit()
+        if link_info[6] == "1": #Check if staff is doing the class in lab
+            cursor.execute("INSERT INTO link_staff_uplift VALUES(%s, %s)", (staff_id, 3,))
+            database.commit()
     cursor.execute("INSERT INTO link_staff_module VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (staff_id, module_id, link_info[2], link_info[3], link_info[4], link_info[5], link_info[6], link_info[7], link_info[8], link_info[9], link_info[10], link_info[11], link_info[12], link_info[13], link_info[14], link_info[15], link_info[16],))
     database.commit()
+    cursor.close()
+    database.close()

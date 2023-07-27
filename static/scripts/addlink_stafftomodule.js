@@ -133,7 +133,6 @@ const addupButton = function(){
         assignURL = assignURL.replaceAll("/", "%3F");
         assignURL = assignURL.replaceAll(".", "%2E");
         assignURL = "/modules/assign/linkinfo=" + assignURL;
-        alert(assignURL);
         window.location.replace(assignURL);
     }
 };

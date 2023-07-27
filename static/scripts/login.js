@@ -17,6 +17,7 @@ else{
     }
     else{
         loginError.innerHTML = "Login failed, please try again.";
+        loginError.style.color = "red";
     }
     const loginButton = function(){
         if (loginUsernameBox.value === "" || loginPasswordBox.value === ""){
