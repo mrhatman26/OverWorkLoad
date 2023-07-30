@@ -5,6 +5,12 @@
         <h3 id="page_header">Uplifts</h3>
         <div id="home_paragraph1">
                 <p id="button_alt"><a href="{{ url_for('uplift_add', failed=False) }}" class="nav_link" id="button_alt">Add Uplifts</a></p><br>
+                <p></p><br>
+                <p></p><br>
+                <p id="button_alt"><a href="{{ url_for('uplift_admin_assign', failed=False, reason=0, uplift_type='Admin') }}" class="nav_link" id="button_alt">Assign Admin</a></p><br>
+                <p></p><br>
+                <p></p><br>
+                <p id="button_alt"><a href="{{ url_for('uplift_admin_assign', failed=False, reason=0, uplift_type='Research') }}" class="nav_link" id="button_alt">Assign Research</a></p><br>
                 <p></p>
                 <table>
                     <tr>

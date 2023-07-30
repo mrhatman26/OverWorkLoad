@@ -77,7 +77,8 @@ def module_add_confirm(module_info):
         
 #Link module and staff member
 @app.route('/modules/assign+failed=<failed>')
-def module_assign(failed):
+@app.route('/modules/assign+failed=<failed>+reason=<reason>')
+def module_assign(failed, reason=0):
     if current_user.is_authenticated is not True:
         abort(403)
     else:
@@ -87,11 +88,13 @@ def module_assign_confirm(link_info):
     if current_user.is_authenticated is not True:
         abort(404)
     else:
-        #try:
-            link_staff_module(link_info)
-            return redirect('/')
-        #except:
-        #    return redirect('/modules/assign+failed=True')
+        try:
+            if link_staff_module(link_info) is True:
+                return redirect('/staff/list')
+            else:
+                return redirect('/modules/assign+failed=True+reason=1')
+        except:
+            return redirect('/modules/assign+failed=True+reason=2')
         
 #Uplift Routes
 #Uplift list
@@ -112,10 +115,34 @@ def uplift_add_confirm(uplift_info):
     else:
         try:
             print(uplift_info, flush=True)
-            uplift_create(uplift_info)
-            return redirect('/uplifts/list')
+            if uplift_create(uplift_info) is True:
+                return redirect('/uplifts/list')
+            else:
+                return redirect('/uplifts/add+failed=True')
         except:
             return redirect('/uplifts/add+failed=True')
+        
+#Link staff and admin uplifts
+@app.route('/uplifts/admin/add+failed=<failed>')
+@app.route('/uplifts/admin/add+failed=<failed>+reason=<reason>')
+@app.route('/uplifts/admin/add+failed=<failed>+reason=<reason>+type=<uplift_type>')
+def uplift_admin_assign(failed, reason=0, uplift_type="Admin"):
+    if current_user.is_authenticated is not True:
+        abort(403)
+    else:
+        return render_template('uplifts_admin_assign.html', page_name="Admin Assign", staff_list=staff_getall(False), admin_list=uplift_getall(uplift_type), uplift_type=uplift_type)
+@app.route('/uplifts/admin/add/linkinfo=<link_info>')
+def uplift_admin_assign_confirm(link_info):
+    if current_user.is_authenticated is not True:
+        abort(403)
+    else:
+        try:
+            if link_staff_upadmin(link_info) is True:
+                return redirect('/staff/list')
+            else:
+                return redirect('/uplifts/admin/add+failed=True+reason=1+type='+link_info.split("+")[6])
+        except:
+            return redirect('/uplifts/admin/add+failed=True+reason=2+type'+link_info.split("+")[6])
         
 #User routes
 #Login

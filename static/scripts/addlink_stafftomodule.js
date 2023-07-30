@@ -31,9 +31,17 @@ else if (window.location.href.includes("failed=False")){
     assignError.style.display = "none";
 }
 else{
-    assignError.innerHTML = "Failed to assign staff member to module, please try again.";
+    if (window.location.href.includes("reason=0")){
+        assignError.innerHTML = "Failed to assign staff member to module, please try again.";
+    }
+    else if(window.location.href.includes("reason=1")){
+        assignError.innerHTML= "Staff member already assigned to module, please try again.";
+    }
+    else{
+        assignError.innerHTML = "Failed to assign staff member to module due to a server error, please try again.";
+    }
     assignError.style.color = "red";
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo(0, 0);
 }
 checkNumber = function(value){
     if (!isNaN(parseInt(value))){
@@ -54,7 +62,7 @@ showError = function(message, console_error){
     assignError.style.visibility = "visible";
     assignError.style.display = "block";
     assignError.style.color = "red";
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo(0, 0);
     console.error(console_error);
 }
 const addupButton = function(){

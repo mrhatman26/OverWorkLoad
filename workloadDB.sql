@@ -53,10 +53,11 @@ DROP TABLE IF EXISTS link_staff_upadmin;
 CREATE TABLE link_staff_upadmin(
     staff_id INT NOT NULL,
     uplift_id INT NOT NULL,
-    admin_quantity INT,
+    admin_quantity FLOAT,
     admin_override BOOLEAN,
     admin_mod_time INT,
     admin_description TEXT,
+    admin_type TEXT,
     PRIMARY KEY(staff_id, uplift_id),
     FOREIGN KEY(staff_id) REFERENCES table_staff(staff_id),
     FOREIGN KEY(uplift_id) REFERENCES table_uplifts(uplift_id)
@@ -164,18 +165,33 @@ INSERT INTO table_uplifts VALUES(
     58, "Quality Officer", "Admin Allowances", 200, "N/A"),(
     59, "Recruitment Activites", "Admin Allowances", 50, "Working with Andy Morley."),(
     60, "Recruitment Lead", "Admin Allowances", 0, "N/A"),(
-    70, "Staff Development", "Admin Allowances", 0, "Agreed with appraiser."),(
-    71, "Research Lead", "Admin Allowances", 0, "N/A"),(
-    72, "SET Member", "Admin Allowances", 100, "N/A"),(
-    73, "Social Media Officer", "Admin Allowances", 50, "Develop social media strategy; create content; monitor accounts."),(
-    74, "Staff Mentor", "Admin Allowances", 10, "N/A"),(
-    75, "Teaching and Learning Committe Chair", "Admin Allowances", 0, "N/A"),(
-    76, "Timetable Stategic Lead (UG and PG)", "Admin Allowances", 200, "N/A"),(
-    78, "UG Placements Co-Ordinator", "Admin Allowances", 50, "N/A"),(
-    79, "Welcome Activites", "Admin Allowances", 0, "N/A"),(
-    80, "Year 0 Tutor (Including Welcome Week)", "Admin Allowances", 100, "N/A"),(
-    81, "Year 1 Tutor (Including Welcome Week)", "Admin Allowances", 275, "N/A"),(
-    82, "Year 2 Tutor", "Admin Allowances", 200, "N/A"),(
-    83, "Year 3 Tutor", "Admin Allowances", 200, "N/A"),(
-    84, "Year Tutor - PG", "Admin Allowances", 200, "N/A"
+    61, "Staff Development", "Admin Allowances", 0, "Agreed with appraiser."),(
+    62, "Research Lead", "Admin Allowances", 0, "N/A"),(
+    63, "SET Member", "Admin Allowances", 100, "N/A"),(
+    64, "Social Media Officer", "Admin Allowances", 50, "Develop social media strategy; create content; monitor accounts."),(
+    65, "Staff Mentor", "Admin Allowances", 10, "N/A"),(
+    66, "Teaching and Learning Committe Chair", "Admin Allowances", 0, "N/A"),(
+    67, "Timetable Stategic Lead (UG and PG)", "Admin Allowances", 200, "N/A"),(
+    68, "UG Placements Co-Ordinator", "Admin Allowances", 50, "N/A"),(
+    69, "Welcome Activites", "Admin Allowances", 0, "N/A"),(
+    70, "Year 0 Tutor (Including Welcome Week)", "Admin Allowances", 100, "N/A"),(
+    71, "Year 1 Tutor (Including Welcome Week)", "Admin Allowances", 275, "N/A"),(
+    72, "Year 2 Tutor", "Admin Allowances", 200, "N/A"),(
+    73, "Year 3 Tutor", "Admin Allowances", 200, "N/A"),(
+    74, "Year Tutor - PG", "Admin Allowances", 200, "N/A"),(
+    75, "Scholarly Activity", "Research Allowances", 175, "Available to everyone"),(
+    76, "Professor Rsearch Uplift", "Research Allowances", 640, "Includes scholarly activity"),(
+    77, "Reader Research Uplift", "Research Allowances", 480, "Includes scholarly activity"),(
+    78, "Academic Research Allocation (L and SL)", "Research Allowances", 320, "Includes scholarly activity"),(
+    79, "Funded Research", "Research Allowances", 0, "Agreed with line manager/appraiser"),(
+    80, "Director of Studies", "Research Allowances", 50, "PT reduced by half"),(
+    81, "PhD Supervisor", "Research Allowances", 30, "PT reduced by half"),(
+    82, "RDT", "Research Allowances", 50, "N/A"),(
+    83, "REF Admin (Professor)", "Research Allowances", 100, "N/A"),(
+    84, "REF (Ad-Hoc Support Work)", "Research Allowances", 0, "As pre agreed with lead and appraiser"),(
+    85, "REF Admin (Reader)", "Research Allowances", 50, "N/A"),(
+    86, "Doctorate/PhD Study", "Research Allowances", 100, "N/A"),(
+    87, "Research Centre Lead", "Research Allowances", 316, "N/A"
 );
+
+INSERT INTO link_staff_upadmin VALUES (0, 75, 1, 0, 0, "N/A", "Research");

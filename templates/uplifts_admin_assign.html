@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_mainbody">
+    <h3 id="page_header">Assign Staff to {{ uplift_type }}</h3>
+    <div id="login_boxes">
+        <p id="assign_div_error_msg">Please fill in all boxes.</p>
+        <p>{{ uplift_type }} Uplift <select name="admin_code", id="admin_assign_admin_code">
+            {% if admin_list is not none and admin_list|length > 0 %}
+                <option hidden selected="true" disabled="disabled">Choose {{ uplift_type }} Uplift</option>
+                {% for item in admin_list %}
+                    <option>{{ item.uplift_name }} [{{ item.uplift_id }}]</option>
+                {% endfor %}
+            {% else %}
+                <option selected="true" disabled="disabled">No {{ uplift_type }} Uplifts Available!</option>
+            {% endif %}
+        </select></p>
+        <p>Staff Code <select name="staff_code", id="admin_assign_staff_code">
+            {% if staff_list is not none and staff_list|length > 0 %}
+                <option hidden selected="true" disabled="disabled">Choose Staff Code</option>
+                {% for item in staff_list %}
+                    <option>{{ item.staff_code }}</option>
+                {% endfor %}
+            {% else %}
+                <option selected="true" disabled="disabled">No Staff Available!</option>
+            {% endif %}
+        </select></p>
+        <p>{{ uplift_type }} Quantity:</p>
+        <input class="textbox" type="text" id="admin_assign_admin_quantity" name="txt_admin_quantity" maxlength=99 class="textbox"><br>
+        <p>Override {{ uplift_type }} Hours? <select name="admin_adminhoursoverride", id="admin_assign_admin_adminhoursoverride">
+            <option>Yes</option>
+            <option selected>No</option>
+            <option value="1" hidden>1</option>
+            <option value="0" hidden>0</option>
+        </select></p>
+        <p>Override {{ uplift_type }} Hours:</p>
+        <input class="textbox" type="text" id="admin_assign_admin_overridehours" name="txt_admin_overridehours" maxlength=99 class="textbox"><br>
+        <p>{{ uplift_type }} Description:</p>
+        <input class="textbox" type="text" id="admin_assign_admin_notes" name="txt_admin_notes" maxlength=99 class="textbox"><br>
+        <p class="button" id="assign_subbutton"><a>Assign</a></p><br>
+        <p id="hidden_noaffect">{{ uplift_type }}</p>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='scripts/addlink_stafftoadmin.js') }}"></script>
+{% endblock %}
